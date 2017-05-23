@@ -15,7 +15,7 @@
 </div>
 
 <div class="col-md-6">
-    <textarea id="textBox" rows="5" cols="10" placeholder="Write Your Post Here"></textarea>
+    <textarea id="textBox" placeholder="Write Your Post Here"></textarea>
     <button id="postButton" class="btn btn-primary">Post</button>
 </div>
 
@@ -45,7 +45,7 @@
 
                     $(jsonTest).each(function (index, value) {
                         var chatsMessages = $("<li>", { id: "message" + index, "class": "chatsCL" })
-                        chatsMessages.text(value.Message + " " + value.TimeStamp);
+                        chatsMessages.text(value.UserName.Name + value.Message + " " + value.TimeStamp);
                         chatList.append(chatsMessages);
 
                     })

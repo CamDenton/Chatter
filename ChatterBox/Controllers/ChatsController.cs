@@ -173,8 +173,8 @@ Order By Chat.TimeStamp DESC;*/
                 db.SaveChanges();
             }
             return new JsonResult() { Data = JsonConvert.SerializeObject(chat.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            return RedirectToAction("Index");
-        }
+            
+                }
 
         protected override void Dispose(bool disposing)
         {

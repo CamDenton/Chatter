@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#message{
+    border: double;
+}
+
+#lists{
+    list-style : none;
+}
