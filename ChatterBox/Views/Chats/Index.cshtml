@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ChatterBox.Models.Chat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="response"></div>
+<button id="getChats" class="btn btn-primary">Get Chats</button>
+
+@section Scripts {
+    <script>
+        //AJAX request using jQuery as a helper
+        //Notice this combines Razor syntax (@Url.Action()) in order to
+        //have the compiler figure out the exact path of the controller,
+        //alongside of jQuery.
+
+        $(document).ready(function () {
+
+            
+                
+                    
+
+            $("#getChats").click(GetPosts);
+
+                    function GetPosts(){
+                        $.get("@Url.Action("TestJson","Chats")", function (serverResponse) {
+                            var jsonTest = JSON.parse(serverResponse);
+
+                                var chatList = $("<ul>", { id: "lists", "class": "bg-primary" });
+                                console.log(jsonTest);
+                                $("#response").append(chatList);
+
+                        
+                                $(jsonTest).each(function (index, value)
+                                {
+                                    var chatsMessages = $("<li>", { id: "message" + index, "class": "chatsCL" })
+                                    chatsMessages.text(value.Message + " " + value.TimeStamp);
+                                    chatList.append(chatsMessages);
+
+                                })
+
+                            });
+                    }
+            
+
+                });
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </script>
+}
+
+
