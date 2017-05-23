@@ -9,9 +9,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="col-md-6">
+    <div id="response"></div>
+    <button id="getChats" class="btn btn-primary">Get Chats</button>
+</div>
 
-<div id="response"></div>
-<button id="getChats" class="btn btn-primary">Get Chats</button>
+<div class="col-md-6">
+    <textarea id="textBox" rows="5" cols="10" placeholder="Write Your Post Here"></textarea>
+    <button id="postButton" class="btn btn-primary">Post</button>
+</div>
 
 @section Scripts {
     <script>
@@ -22,34 +28,45 @@
 
         $(document).ready(function () {
 
-            
-                
-                    
+
+
+
 
             $("#getChats").click(GetPosts);
 
-                    function GetPosts(){
-                        $.get("@Url.Action("TestJson","Chats")", function (serverResponse) {
-                            var jsonTest = JSON.parse(serverResponse);
+            function GetPosts() {
+                $.get("@Url.Action("TestJson","Chats")", function (serverResponse) {
+                    var jsonTest = JSON.parse(serverResponse);
 
-                                var chatList = $("<ul>", { id: "lists", "class": "bg-primary" });
-                                console.log(jsonTest);
-                                $("#response").append(chatList);
+                    var chatList = $("<ul>", { id: "lists", "class": "bg-primary" });
+                    console.log(jsonTest);
+                    $("#response").append(chatList);
 
-                        
-                                $(jsonTest).each(function (index, value)
-                                {
-                                    var chatsMessages = $("<li>", { id: "message" + index, "class": "chatsCL" })
-                                    chatsMessages.text(value.Message + " " + value.TimeStamp);
-                                    chatList.append(chatsMessages);
 
-                                })
+                    $(jsonTest).each(function (index, value) {
+                        var chatsMessages = $("<li>", { id: "message" + index, "class": "chatsCL" })
+                        chatsMessages.text(value.Message + " " + value.TimeStamp);
+                        chatList.append(chatsMessages);
 
-                            });
-                    }
-            
+                    })
 
                 });
+            }
+
+            $("#postButton").click(WritePost);
+
+            function WritePost() {
+                var post = $("#textBox").val();
+                    
+
+                $.post("@Url.Action("PostChats", "Chats")", { "Message": post });
+            }
+
+        });
+            
+            
+
+                
         
 
         
