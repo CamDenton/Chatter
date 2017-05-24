@@ -34,6 +34,8 @@
 
             $("#getChats").click(GetPosts);
 
+            window.setInterval((GetPosts), 10000);
+
             function GetPosts() {
                 $.get("@Url.Action("TestJson","Chats")", function (serverResponse) {
                     var jsonTest = JSON.parse(serverResponse);
@@ -45,7 +47,7 @@
 
                     $(jsonTest).each(function (index, value) {
                         var chatsMessages = $("<li>", { id: "message" + index, "class": "chatsCL" })
-                        chatsMessages.text(value.UserName.Name + value.Message + " " + value.TimeStamp);
+                        chatsMessages.text(value.UserName + " " + value.Message + " " + value.TimeStamp);
                         chatList.append(chatsMessages);
 
                     })
@@ -57,25 +59,25 @@
 
             function WritePost() {
                 var post = $("#textBox").val();
-                    
+
 
                 $.post("@Url.Action("PostChats", "Chats")", { "Message": post });
             }
 
         });
-            
-            
 
-                
-        
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
     </script>
 }
 
